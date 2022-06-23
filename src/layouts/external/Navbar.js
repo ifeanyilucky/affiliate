@@ -19,9 +19,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import Iconify from '../../components/Iconify';
 import Logo from '../../components/Logo';
 import { PATH } from '../../routes/paths';
+import { useAuth, loggedIn } from '../../hooks/useAuth';
+import AccountPopover from '../../components/AccountPopover';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const account = useAuth();
+  const isLoggedIn = loggedIn();
 
   return (
     <Box>
@@ -54,65 +58,52 @@ export default function Navbar() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
-          >
-            <Logo />
-          </Text>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
-          </Flex>
-        </Flex>
-
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          spacing={6}
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: 'center', md: 'start' }}
+          alignItems='baseline'
         >
-          <Button
-            as={RouterLink}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            to={PATH.login}
+          <Logo />
+
+          <Box ml={5}>
+            <Text fontSize='lg'>Affiliate Program</Text>
+          </Box>
+        </Flex>
+        {isLoggedIn ? (
+          <AccountPopover account={account} />
+        ) : (
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            spacing={6}
           >
-            Login
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            as={RouterLink}
-            to={PATH.register}
-            _hover={{
-              bg: 'pink.300',
-            }}
-          >
-            Register
-          </Button>
-        </Stack>
+            <Button
+              as={RouterLink}
+              fontSize={'sm'}
+              fontWeight={400}
+              variant={'link'}
+              to={PATH.login}
+            >
+              Login
+            </Button>
+            <Button
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'primary.100'}
+              as={RouterLink}
+              to={PATH.register}
+              _hover={{
+                bg: 'primary.100',
+              }}
+            >
+              Register
+            </Button>
+          </Stack>
+        )}
       </Flex>
     </Box>
   );
 }
-
-const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200');
-  const linkHoverColor = useColorModeValue('gray.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-
-  return (
-    <Stack direction={'row'} spacing={4} justifyContent='center'>
-      <Box>
-        <Text fontSize='2xl'>Affiliate Program</Text>
-      </Box>
-    </Stack>
-  );
-};

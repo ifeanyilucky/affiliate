@@ -23,6 +23,7 @@ import {
 import Iconify from '../../components/Iconify';
 import Logo from '../../components/Logo';
 import { useAuth } from '../../hooks/useAuth';
+import AccountPopover from '../../components/AccountPopover';
 
 export const MobileNav = ({ onOpen, ...rest }) => {
   const account = useAuth();
@@ -48,43 +49,7 @@ export const MobileNav = ({ onOpen, ...rest }) => {
       </HStack>
       <HStack spacing={{ base: '0', md: '6' }}>
         <Flex alignItems={'center'}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition='all 0.3s'
-              _focus={{ boxShadow: 'none' }}
-            >
-              <HStack>
-                <Avatar size={'sm'} src={account.profilePic} />
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems='flex-start'
-                  spacing='1px'
-                  ml='2'
-                >
-                  <Text fontSize='sm'>
-                    {account.firstName} {account.lastName}
-                  </Text>
-                  <Text fontSize='xs' color='gray.600'>
-                    {account.email}
-                  </Text>
-                </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <Iconify icon='ant-design:home-filled' />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}
-            >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
+          <AccountPopover account={account} />
         </Flex>
       </HStack>
     </Flex>

@@ -6,13 +6,23 @@ import { myAccount } from '../redux/actions/auth';
 export const useAuth = () => {
   const dispatch = useDispatch();
   const token = JSON.parse(localStorage.getItem('partner'));
-  const decoded = jwtDecode(token);
-  const { userId } = decoded;
-  console.log('userid', userId);
+  let decoded = null;
+  if (token) {
+    decoded = jwtDecode(token);
+  }
+
   useEffect(() => {
-    dispatch(myAccount(userId));
+    if (token) dispatch(myAccount(decoded.userId));
   }, [dispatch]);
   const { account } = useSelector((state) => state.auth);
+  if (!account) {
+    return null;
+  } else return account;
+};
 
-  return account;
+export const loggedIn = () => {
+  const token = JSON.parse(localStorage.getItem('partner'));
+  if (token) {
+    return true;
+  } else return false;
 };

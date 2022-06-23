@@ -25,7 +25,7 @@ export default function Hero() {
           lineHeight={'110%'}
         >
           Become a Lemox
-          <Text as={'span'} color={'orange.400'}>
+          <Text as={'span'} color={'primary.100'}>
             {' '}
             Affiliate
           </Text>
@@ -37,11 +37,10 @@ export default function Hero() {
         </Text>
         <Stack spacing={6} direction={'row'}>
           <Button
-            rounded={'full'}
             px={6}
-            colorScheme={'orange'}
-            bg={'orange.400'}
-            _hover={{ bg: 'orange.500' }}
+            colorScheme={'primary'}
+            bg={'primary.100'}
+            _hover={{ bg: 'primary.100' }}
             as={RouterLink}
             to={PATH.dashboard}
           >

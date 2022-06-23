@@ -22,6 +22,7 @@ import Iconify from '../components/Iconify';
 import { getInvestments } from '../redux/actions/data';
 import { useAuth } from '../hooks/useAuth';
 import { fCurrency, fNumber } from '../utils/formatNumber';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function Dashboard() {
   const toast = useToast();
@@ -44,6 +45,8 @@ export default function Dashboard() {
       position: 'top',
     });
   };
+  const refLink = `lemox.co/referral?ref=${account.referralCode}`;
+  // const referredUsers = users.filter((u) => u.referredBy === acount.referralCode);
   return (
     <Page title='Affiliates'>
       <Grid
@@ -77,13 +80,13 @@ export default function Dashboard() {
                 variant='filled'
               />
               <InputRightElement width='8rem'>
-                <Button
-                  leftIcon={<Iconify icon='fluent:copy-16-filled' />}
-                  variant='solid'
-                  onClick={CopyLink}
+                <CopyToClipboard
+                  options={{ message: '' }}
+                  text={refLink}
+                  onCopy={CopyLink}
                 >
-                  Copy
-                </Button>
+                  <Button>Copy</Button>
+                </CopyToClipboard>
               </InputRightElement>
             </InputGroup>
             <Box maxW='container.md'>

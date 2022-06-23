@@ -2,7 +2,7 @@ import { useRoutes } from 'react-router-dom';
 import ExternalLayout from '../layouts/external/ExternalLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import AuthLayout from '../layouts/Auth/AuthLayout';
-import { Dashboard, Home, Login, Register } from '../pages';
+import { Dashboard, Home, Login, MyReferral, Register } from '../pages';
 import Guest from '../Guard/Guest';
 import Auth from '../Guard/Auth';
 
@@ -19,7 +19,10 @@ export default function Route() {
           <DashboardLayout />
         </Auth>
       ),
-      children: [{ element: <Dashboard />, path: '/dashboard' }],
+      children: [
+        { element: <Dashboard />, path: '/dashboard' },
+        { element: <MyReferral />, path: '/my-referrals' },
+      ],
     },
     {
       element: (
