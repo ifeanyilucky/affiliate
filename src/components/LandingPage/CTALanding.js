@@ -13,7 +13,7 @@ import { PATH } from '../../routes/paths';
 
 export default function CtaLanding() {
   const target = [
-    { title: 'Age', desc: '40-55+' },
+    { title: 'Age', desc: '20-60+' },
     { title: 'Household Income', desc: '400k+' },
     { title: 'Awareness', desc: 'Financially conscious' },
     { title: 'Networth', desc: '$500+' },
