@@ -7,7 +7,6 @@ export const signin =
     await api
       .signin(values)
       .then(({ data }) => {
-        console.log(data);
         dispatch({ type: type.auth, payload: data });
         localStorage.setItem('partner', JSON.stringify(data.token));
         toast({
@@ -43,7 +42,7 @@ export const signup =
       .register(values)
       .then(({ data }) => {
         dispatch({ type: type.auth, payload: data });
-        console.log(data);
+
         localStorage.setItem('partner', JSON.stringify(data.token));
         toast({
           status: 'success',

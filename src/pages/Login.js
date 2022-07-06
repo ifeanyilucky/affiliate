@@ -32,30 +32,34 @@ export default function Login() {
       password: '',
     },
     onSubmit: (values, { setSubmitting }) => {
-      console.log(values);
       dispatch(signin(values, setSubmitting, navigate, toast));
     },
   });
   const { handleSubmit, isSubmitting, setFieldValue } = formik;
 
   return (
-    <FormikProvider value={formik}>
-      <Form onSubmit={handleSubmit}>
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-          <Stack align={'center'}>
-            <Logo />
-            <Text fontSize={'lg'} color={'gray.600'}>
-              Enter your details below
-            </Text>
-          </Stack>
-          <Box
-            rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
-            boxShadow={'lg'}
-            p={8}
-            width={'sm'}
-          >
-            <Stack spacing={4}>
+    <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack align={'center'}>
+        <Box pb={10}>
+          <Logo />
+        </Box>
+        <Heading fontSize={'2xl'} textAlign={'center'}>
+          Login
+        </Heading>
+        <Text fontSize={'lg'} color={'gray.600'}>
+          Enter your details below
+        </Text>
+      </Stack>
+      <Box
+        rounded={'lg'}
+        bg={useColorModeValue('white', 'gray.700')}
+        boxShadow={'lg'}
+        p={8}
+      >
+        <Stack spacing={4}>
+          {' '}
+          <FormikProvider value={formik}>
+            <Form onSubmit={handleSubmit}>
               <FormControl id='email' isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
@@ -70,16 +74,6 @@ export default function Login() {
                     type={showPassword ? 'text' : 'password'}
                     onChange={(e) => setFieldValue('password', e.target.value)}
                   />
-                  {/* <InputRightElement h={'full'}>
-                  <Button
-                    variant={'ghost'}
-                    onClick={() =>
-                      setShowPassword((showPassword) => !showPassword)
-                    }
-                  >
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </InputRightElement> */}
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
@@ -97,18 +91,18 @@ export default function Login() {
                   Login
                 </Button>
               </Stack>
-              <Stack pt={6}>
-                <Text align={'center'}>
-                  Not a member yet?{' '}
-                  <Link color={'blue.400'} as={RouterLink} to={PATH.register}>
-                    Create a new Account
-                  </Link>
-                </Text>
-              </Stack>
-            </Stack>
-          </Box>
+            </Form>
+          </FormikProvider>
+          <Stack pt={6}>
+            <Text align={'center'}>
+              Not a member yet?{' '}
+              <Link color={'blue.400'} as={RouterLink} to={PATH.register}>
+                Create a new Account
+              </Link>
+            </Text>
+          </Stack>
         </Stack>
-      </Form>
-    </FormikProvider>
+      </Box>
+    </Stack>
   );
 }

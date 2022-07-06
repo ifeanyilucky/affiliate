@@ -27,7 +27,7 @@ import AccountPopover from '../../components/AccountPopover';
 
 export const MobileNav = ({ onOpen, ...rest }) => {
   const account = useAuth();
-  const Links = ['Dashboard', 'Referral'];
+  const Links = ['Dashboard'];
   return (
     <Flex
       px={{ base: 4, md: 10 }}

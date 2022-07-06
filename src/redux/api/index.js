@@ -19,4 +19,4 @@ export const register = (values) => API.post('/auth/register', values);
 export const fetchUsers = () => API.get('/users');
 export const fetchUser = (id) => API.get(`/users/${id}`);
 export const fetchMyAccount = (id) => API.get(`/users/${id}`);
-export const fetchStaticInvestments = () => API.get('/static/investments');
+export const fetchStaticInvestments = () => API.get('/static-investments');

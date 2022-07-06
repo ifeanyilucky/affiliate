@@ -21,6 +21,7 @@ import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 import { getInvestments } from '../redux/actions/data';
 import { useAuth } from '../hooks/useAuth';
+import { useAffiliate } from '../hooks/useAffilliate';
 import { fCurrency, fNumber } from '../utils/formatNumber';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -28,12 +29,11 @@ export default function Dashboard() {
   const toast = useToast();
   const dispatch = useDispatch();
   const account = useAuth();
-  console.log(account);
+
   useEffect(() => {
     dispatch(getInvestments());
   }, [dispatch]);
   const { investments } = useSelector((state) => state.data);
-  console.log(investments);
   const CopyLink = () => {
     toast({
       description: 'Referral link copied',
@@ -45,8 +45,10 @@ export default function Dashboard() {
       position: 'top',
     });
   };
-  const refLink = `lemox.co/referral?ref=${account.referralCode}`;
+  const refLink = `https://lemox.co/referral?ref=${account.referralCode}`;
   // const referredUsers = users.filter((u) => u.referredBy === acount.referralCode);
+  const { commisionBalance, referredUsers, amountWithdrawn } = useAffiliate();
+
   return (
     <Page title='Affiliates'>
       <Grid
@@ -59,7 +61,7 @@ export default function Dashboard() {
             <Text>Hi John, Welcome to Lemox Affiliate dashboard</Text>
             <SimpleGrid columns={{ md: 2, sm: 1 }} spacing={5}>
               <Card
-                head={fNumber(3000)}
+                head={fNumber(referredUsers.length)}
                 desc='Total signup'
                 rounded={'3xl'}
                 p={5}
@@ -74,10 +76,11 @@ export default function Dashboard() {
               />
               <Input
                 type={'text'}
-                value='https://lemox.co/affiliate?ref=67ty874'
+                value={refLink}
                 size='lg'
                 fontSize={'14px'}
                 variant='filled'
+                position='relative'
               />
               <InputRightElement width='8rem'>
                 <CopyToClipboard
@@ -85,12 +88,16 @@ export default function Dashboard() {
                   text={refLink}
                   onCopy={CopyLink}
                 >
-                  <Button>Copy</Button>
+                  <Button
+                    sx={{ position: 'absolute', right: '0', height: '100%' }}
+                  >
+                    Copy
+                  </Button>
                 </CopyToClipboard>
               </InputRightElement>
             </InputGroup>
             <Box maxW='container.md'>
-              <ReferredUsers referredInvestments={investments} />
+              <ReferredUsers referredInvestments={referredUsers} />
             </Box>{' '}
           </Stack>
         </GridItem>
@@ -98,7 +105,10 @@ export default function Dashboard() {
           colSpan={{ md: 4, sm: 12 }}
           gridRowEnd={{ sm: 1, md: 'revert' }}
         >
-          <ComissionCard />
+          <ComissionCard
+            balance={commisionBalance}
+            amountWithdrawn={amountWithdrawn}
+          />
         </GridItem>
       </Grid>
     </Page>

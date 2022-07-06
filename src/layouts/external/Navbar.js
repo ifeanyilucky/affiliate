@@ -41,32 +41,14 @@ export default function Navbar() {
         align={'center'}
       >
         <Flex
-          flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}
-        >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? (
-                <Iconify icon='ant-design:twitter-circle-filled' w={3} h={3} />
-              ) : (
-                <Iconify icon='ant-design:twitter-circle-filled' w={5} h={5} />
-              )
-            }
-            variant={'ghost'}
-            aria-label={'Toggle Navigation'}
-          />
-        </Flex>
-        <Flex
           flex={{ base: 1 }}
-          justify={{ base: 'center', md: 'start' }}
+          justify={{ base: 'left', md: 'start' }}
           alignItems='baseline'
         >
           <Logo />
 
           <Box ml={5}>
-            <Text fontSize='lg'>Affiliate Program</Text>
+            <Text fontSize='sm'>Affiliate Program</Text>
           </Box>
         </Flex>
         {isLoggedIn ? (

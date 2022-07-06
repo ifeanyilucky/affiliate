@@ -21,6 +21,7 @@ import { useFormik, FormikProvider, Form } from 'formik';
 import Iconify from '../components/Iconify';
 import { signup } from '../redux/actions/auth';
 import { PATH } from '../routes/paths';
+import Logo from '../components/Logo';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,9 +37,7 @@ export default function Register() {
       password: '',
     },
     onSubmit: (values, { setSubmitting }) => {
-      console.log(values);
-
-      dispatch(signup(values, toast, navigate, setSubmitting));
+      dispatch(signup({ values }, toast, navigate, setSubmitting));
     },
   });
 
@@ -46,11 +45,14 @@ export default function Register() {
   return (
     <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
       <Stack align={'center'}>
-        <Heading fontSize={'4xl'} textAlign={'center'}>
+        <Box pb={10}>
+          <Logo />
+        </Box>
+        <Heading fontSize={'2xl'} textAlign={'center'}>
           Sign up
         </Heading>
         <Text fontSize={'lg'} color={'gray.600'}>
-          to enjoy all of our cool features ✌️
+          Sign up to get started
         </Text>
       </Stack>
       <Box
@@ -75,9 +77,15 @@ export default function Register() {
                   </FormControl>
                 </Box>
                 <Box>
-                  <FormControl id='lastName'>
+                  <FormControl id='lastName' isRequired>
                     <FormLabel>Last Name</FormLabel>
-                    <Input type='text' />
+                    <Input
+                      type='text'
+                      required
+                      onChange={(e) => {
+                        setFieldValue('lastName', e.target.value);
+                      }}
+                    />
                   </FormControl>
                 </Box>
               </HStack>

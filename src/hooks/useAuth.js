@@ -12,7 +12,7 @@ export const useAuth = () => {
   }
 
   useEffect(() => {
-    if (token) dispatch(myAccount(decoded.userId));
+    if (decoded) dispatch(myAccount(decoded.userId));
   }, [dispatch]);
   const { account } = useSelector((state) => state.auth);
   if (!account) {

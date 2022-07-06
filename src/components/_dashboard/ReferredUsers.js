@@ -22,7 +22,9 @@ export default function ReferredUsers({ referredInvestments }) {
       width='100%'
       overflowX={{ md: 'hidden', sm: 'scroll' }}
     >
-      <Heading fontSize='larger'>Your Referral</Heading>
+      <Heading fontSize='larger' align='center'>
+        Your Referrals
+      </Heading>
       <TableContainer>
         <Table>
           <Thead>
@@ -42,10 +44,15 @@ export default function ReferredUsers({ referredInvestments }) {
                     <Td>{`${user?.firstName} ${user?.lastName}`}</Td>
                     <Td>{fToNow(createdAt)}</Td>
                     <Td>{fCurrency(amount)}</Td>
-                    <Td>{fCurrency(amount * 0.05)}</Td>
+                    <Td>{fCurrency(amount * 0.1)}</Td>
                   </Tr>
                 );
               })}
+            {referredInvestments.length < 1 && (
+              <Tr>
+                <Td align='center'>You currently do not have any refferal</Td>
+              </Tr>
+            )}
             {!referredInvestments && <CircularProgress />}
           </Tbody>
         </Table>

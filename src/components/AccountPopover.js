@@ -11,7 +11,7 @@ import {
   useColorModeValue,
   Box,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import _ from 'lodash';
 import Iconify from './Iconify';
 import { PATH } from '../routes/paths';
@@ -50,9 +50,10 @@ export default function AccountPopover(props) {
         bg={useColorModeValue('white', 'gray.900')}
         borderColor={useColorModeValue('gray.200', 'gray.700')}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Settings</MenuItem>
-        <MenuItem>Billing</MenuItem>
+        <MenuItem as={RouterLink} to={PATH.dashboard}>
+          Dashboard
+        </MenuItem>
+
         <MenuDivider />
         <MenuItem onClick={signOut}>Sign out</MenuItem>
       </MenuList>

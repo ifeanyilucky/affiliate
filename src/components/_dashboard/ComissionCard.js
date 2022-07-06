@@ -9,13 +9,13 @@ import {
 import Card from '../Card';
 import { fCurrency } from '../../utils/formatNumber';
 
-export default function ComissionCard() {
-  const comissionBal = 3000;
+export default function ComissionCard({ balance, amountWithdrawn }) {
+  const minimumWithdrawal = 1500;
   return (
     <Card bg='blue.600' color='gray.300'>
       <Stack spacing={5}>
         <Text>Available Comission Balance</Text>
-        <Heading color='gray.100'>{fCurrency(comissionBal)}</Heading>
+        <Heading color='gray.100'>{fCurrency(balance)}</Heading>
         <Box as='hr' sx={{ borderColor: 'gray.500' }} />
         <SimpleGrid
           w='100%'
@@ -24,20 +24,20 @@ export default function ComissionCard() {
           fontSize={'small'}
         >
           <Text>Total amount withdrawn</Text>
-          <Text>{fCurrency(0)}</Text>
+          <Text>{fCurrency(amountWithdrawn)}</Text>
         </SimpleGrid>
         <Button
           variant='solid'
           color='blackAlpha.800'
           bg='gray.100'
           size='md'
-          disabled={comissionBal >= 5000 ? false : true}
+          disabled={balance >= minimumWithdrawal ? false : true}
         >
           Request Withdrawal
         </Button>
         <Text fontSize={'small'}>
           You will be able to request a withdrawal as soon as your balance
-          reaches the minimum required amount of $5,000.00.
+          reaches the minimum required amount of {fCurrency(minimumWithdrawal)}
         </Text>
       </Stack>
     </Card>
